@@ -11,18 +11,62 @@ Globals:
     Timeout: 3
 
 Resources:
+  StudentTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: students
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
   StudentFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: students/
       Handler: app.app
       Runtime: python3.6
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName:
+              !Ref StudentTable
       Events:
         Test:
           Type: Api
           Properties:
             Path: /
             Method: get
+        ListStudents:
+          Type: Api
+          Properties:
+            Path: /students
+            Method: get
+        PutStudent:
+          Type: Api
+          Properties:
+            Path: /students
+            Method: post
+        GetStudent:
+          Type: Api
+          Properties:
+            Path: /students/{id}/
+            Method: get
+        PatchStudent:
+          Type: Api
+          Properties:
+            Path: /students/{id}/
+            Method: patch
+        DeleteStudent:
+          Type: Api
+          Properties:
+            Path: /students/{id}/
+            Method: delete
+
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
