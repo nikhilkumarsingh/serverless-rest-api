@@ -93,7 +93,7 @@ A brief introduction and demo of DynamoDB. Learn how to interact with DynamoDB u
 - [Tutorial Notebook](https://gist.github.com/nikhilkumarsingh/ff0261d6a3f6894c7ec0bb61deb990e0)
 
 
-## Part 8: DynamoDB Integration
+## Part 8: Flask DynamoDB Integration
 
 [Video](https://youtu.be/8O8VNuYyplU)
 
